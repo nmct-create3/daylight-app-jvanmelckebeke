@@ -8,11 +8,23 @@
 
 :root {
     /* colors */
+    --color-light: var(--color-light-night, hsla(208, 100%, 90%, 1));
+    --color-dark: var(--color-dark-night, hsla(208, 100%, 10%, 1));
+    --color-back: var(--color-light);
+    --color-front: var(--color-dark);
 
     /* opacity */
 
     /* transitions */
 }
+
+.is-night {
+    --color-light-night: #0F3557;
+    --color-dark-night: #CCE7FF;
+}
+
+
+
 
 /*------------------------------------*\
 #GENERIC
@@ -27,10 +39,12 @@
 html {
     font-size: 16px;
     line-height: 1.5;
-    font-family: Helvetica, arial, sans-serif;
+    font-family: 'Work Sans', sans-serif;
+
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background: var(--color-back);
 }
 
 *,
@@ -249,7 +263,13 @@ input::placeholder {
 */
 
 .c-logo {
-
+    font-size: 1rem;
+    line-height: 1;
+    color: var(--color-dark);
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    margin-bottom: auto;
 }
 
 /*
@@ -259,6 +279,9 @@ input::placeholder {
 */
 
 .c-sun {
+    width: 1.375rem;
+    height: 1.375rem;
+    fill: var(--color-dark);
 
 }
 
@@ -271,12 +294,79 @@ input::placeholder {
     ---
     Main app wrapper
 */
+.c-app {
+    max-width: 25rem;
+    min-height: 100vh;
+    /* 1 rem = 16px*/
+    padding: 2rem 2rem .5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin: 0 auto;
+    color: var(--color-dark);
+}
+
+.c-app__summary {
+    font-size: 1.75rem;
+    line-height: 2.5rem;
+}
 
 /*
     Component: Horizon
     ---
     Horizon with sun visualisation
 */
+
+.c-horizon {
+    margin-bottom: 2.125rem;
+
+}
+
+.c-horizon__line {
+    border-top: var(--color-dark) 1px solid;
+    width: 100%;
+    padding-top: .5rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.c-horizon__time {
+    font-size: 0.75rem;
+    line-height: 1.1666666667;
+}
+
+.c-horizon__sky-wrapper {
+    position: relative;
+    height: 12.5rem;
+    overflow: hidden;
+    padding-top: 1.466666667rem;
+    /*padding-right: 2.5rem;*/
+}
+
+.c-horizon__sky {
+    position: relative;
+    height: 100%;
+}
+
+.c-horizon__sun {
+    fill: var(--color-dark);
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 2.5rem;
+    /*transform: translatey(1.466666667rem);*/
+}
+
+.c-horizon__sun::before {
+    content: attr(data-time);
+    display: block;
+    margin-bottom: .5rem;
+    font-size: .75rem;
+    line-height: 1.1666666667;
+    color: var(--color-dark);
+}
 
 /*------------------------------------*\
 #UTILITIES
@@ -286,6 +376,10 @@ input::placeholder {
     Utilities: Mute
     Mute with opacity
 */
+
+.u-muted {
+    opacity: .6;
+}
 
 /*------------------------------------*\
 #STATES
@@ -319,16 +413,20 @@ input::placeholder {
         box-shadow: none !important;
         text-shadow: none !important;
     }
+
     a,
     a:visited {
         text-decoration: underline;
     }
+
     a[href]:after {
         content: " (" attr(href) ")";
     }
+
     abbr[title]:after {
         content: " (" attr(title) ")";
     }
+
     /*
     * Don't show links that are fragment identifiers,
     * or use the `javascript:` pseudo protocol
@@ -337,14 +435,17 @@ input::placeholder {
     a[href^="javascript:"]:after {
         content: "";
     }
+
     pre {
         white-space: pre-wrap !important;
     }
+
     pre,
     blockquote {
         border: 1px solid #999;
         page-break-inside: avoid;
     }
+
     /*
     * Printing Tables:
     * http://css-discuss.incutio.com/wiki/Printing_Tables
@@ -352,16 +453,19 @@ input::placeholder {
     thead {
         display: table-header-group;
     }
+
     tr,
     img {
         page-break-inside: avoid;
     }
+
     p,
     h2,
     h3 {
         orphans: 3;
         widows: 3;
     }
+
     h2,
     h3 {
         page-break-after: avoid;
